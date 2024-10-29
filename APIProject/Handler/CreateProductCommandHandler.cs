@@ -1,10 +1,13 @@
-﻿using APIProject.Command;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using APIProject.Command;
 using APIProject.Models;
 using APIProject.Repo;
+using MediatR;
 
 namespace APIProject.Handler
 {
-    public class CreateProductCommandHandler
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Course>
     {
         private readonly ICourseRepo _courseRepository;
 
@@ -13,18 +16,18 @@ namespace APIProject.Handler
             _courseRepository = courseRepository;
         }
 
-        public void Handle(CreateProductCommand command)
+        public async Task<Course> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
             var course = new Course
             {
                 Name = command.Name,
                 Description = command.Description,
-                ProductImage = command.ProductImage,
-                ImagePath = command.ImagePath
+                ProductImage = command.ProductImage
             };
 
-            _courseRepository.AddCourse(course);  // Assuming AddProduct is a synchronous method
+            _courseRepository.AddCourse(course);
+
+            return course; // Return the newly created course
         }
     }
-
 }

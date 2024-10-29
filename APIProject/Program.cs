@@ -4,10 +4,12 @@ using APIProject.Mapper;
 using APIProject.Repo;
 using APIProject.Services;
 using APIProject.Utilities;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 internal class Program
@@ -24,6 +26,7 @@ internal class Program
 
         // Add services to the container
         builder.Services.AddControllers();
+        /*builder.Services.AddMediatR(typeof(CreateProductCommandHandler).Assembly);*/
 
         // Register services and repositories
         builder.Services.AddScoped<ICourseService, CourseService>();
@@ -31,9 +34,13 @@ internal class Program
         builder.Services.AddScoped<CreateProductCommandHandler>();
         builder.Services.AddScoped(typeof(IErrorHandlingService<>), typeof(ErrorHandlingService<>));
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        //Mapper
         builder.Services.AddScoped<JwtTokenHelper>();  // Register the JwtTokenHelper class
         builder.Services.AddScoped<IMapper, Mapper>(); // Registering the Mapper
-    
+        //MediatR
+        builder.Services.AddControllersWithViews();
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); // Register MediatR
+
 
         // Configure Swagger
         builder.Services.AddEndpointsApiExplorer();
