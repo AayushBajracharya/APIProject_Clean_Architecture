@@ -6,7 +6,6 @@ using APIProject.Command;
 using APIProject.Mapper;
 using APIProject.DTO;
 using MediatR;
-using System.Threading;
 
 namespace APIProject.Controllers
 {
@@ -72,7 +71,7 @@ namespace APIProject.Controllers
                 if (productImage != null && productImage.Length > 0)
                 {
                     // Define the path to save the image
-                    var filePath = Path.Combine("C:\\Users\\DELL\\source\\repos\\APIProject\\APIProject\\photo", productImage.FileName);
+                    var filePath = Path.Combine("C:\\Users\\DELL\\source\\repos\\APIProject\\Infrastructure\\photo", productImage.FileName);
 
                     // Save the file to the defined path
                     using (var stream = new FileStream(filePath, FileMode.Create))
@@ -123,7 +122,7 @@ namespace APIProject.Controllers
                 if (productImage != null && productImage.Length > 0)
                 {
                     // Define the path to save the image
-                    var filePath = Path.Combine("C:\\Users\\DELL\\source\\repos\\APIProject\\APIProject\\photo", productImage.FileName);
+                    var filePath = Path.Combine("C:\\Users\\DELL\\source\\repos\\APIProject\\Infrastructure\\photo", productImage.FileName);
 
                     // Save the new file to the defined path
                     using (var stream = new FileStream(filePath, FileMode.Create))
@@ -174,7 +173,7 @@ namespace APIProject.Controllers
             if (productImage != null && productImage.Length > 0)
             {
                 var fileName = Guid.NewGuid() + Path.GetExtension(productImage.FileName);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "C:\\Users\\DELL\\source\\repos\\APIProject\\APIProject\\photo", fileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "C:\\Users\\DELL\\source\\repos\\APIProject\\Infrastructure\\photo", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {

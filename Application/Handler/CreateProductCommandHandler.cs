@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using APIProject.Command;
 using APIProject.Models;
-using APIProject.Repo;
 using MediatR;
+using APIProject.Repo;
 
 namespace APIProject.Handler
 {
